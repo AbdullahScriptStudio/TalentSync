@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     #my apps
     'recruiter',
     'applicant',
-    'people',
 ]
 
 MIDDLEWARE = [
@@ -138,13 +137,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-AUTH_USER_MODEL = 'people.CustomUser'
-
-LOGIN_REDIRECT_URL = 'dashboard_redirect'
-LOGOUT_REDIRECT_URL = 'user_login'
-
-# Enable Authentication Backend
-AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',
-)
-
+#AUTH_USER_MODEL = 'accounts.CustomUser'
