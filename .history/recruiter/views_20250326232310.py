@@ -12,42 +12,6 @@ def is_recruiter(user):
     return user.is_authenticated and user.role == "recruiter"
 
 # 🔹 Recruiter Dashboard (Shows Only Recruiter's Jobs)
-from django.contrib.staticfiles.storage import staticfiles_storage
-
-@login_required
-def recruiter_dashboard(request):
-    if request.user.role != 'recruiter':  # Ensure only recruiters access this view
-        messages.error(request, "Unauthorized access.")
-        return redirect('job_list')  # Redirect unauthorized users
-
-    recruiter = request.user
-    total_jobs = JobPost.objects.filter(recruiter=recruiter).count()
-    total_applicants = 232  # Placeholder (update if needed)
-
-    # Fetch only the recruiter's jobs
-    recent_jobs = JobPost.objects.filter(recruiter=recruiter).order_by('-posted_at')[:4]
-
-    # Get job status counts for this recruiter
-    open_jobs = JobPost.objects.filter(recruiter=recruiter, status="open").count()
-    closed_jobs = JobPost.objects.filter(recruiter=recruiter, status="closed").count()
-    paused_jobs = JobPost.objects.filter(recruiter=recruiter, status="paused").count()
-
-    # Get profile picture (default if not uploaded)
-    profile_picture = recruiter.profile_pic.url if recruiter.profile_pic else staticfiles_storage.url('images/default-profile.png')
-
-    context = {
-        "total_jobs": total_jobs,
-        "total_applicants": total_applicants,
-        "recent_jobs": recent_jobs,
-        "open_jobs": open_jobs,
-        "closed_jobs": closed_jobs,
-        "paused_jobs": paused_jobs,
-        "recruiter_name": f"{recruiter.username}",
-        "profile_picture": profile_picture,
-    }
-    return render(request, "recruiter/recruiter_dashboard.html", context)
-
-
 
 
 # 🔹 Job List (Applicants See All, Recruiters See Their Jobs)

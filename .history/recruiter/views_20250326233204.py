@@ -42,7 +42,7 @@ def recruiter_dashboard(request):
         "open_jobs": open_jobs,
         "closed_jobs": closed_jobs,
         "paused_jobs": paused_jobs,
-        "recruiter_name": f"{recruiter.username}",
+        "recruiter_name": f"{recruiter.first_name}",
         "profile_picture": profile_picture,
     }
     return render(request, "recruiter/recruiter_dashboard.html", context)

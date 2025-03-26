@@ -51,13 +51,11 @@
             <div class="flex items-center mb-8">
                 <img alt="TalentSync logo" class="w-48 h-auto" src="{% static 'images/logo.svg' %}" />
             </div>
+            <img alt="Profile picture" class="w-24 h-24 rounded-full mb-4" src="{% static 'images/dog-profile.svg' %}" />
             <div class="text-center mb-4">
-                <p class="text-sm">Greetings</p>
-                <p class="text-lg">{{ recruiter_name }} <i class="fa-regular fa-pen-to-square"></i></p>
+                <p class="text-sm">Hello</p>
+                <p class="text-lg">{{ user.first_name }} {{ user.last_name }} <i class="fa-regular fa-pen-to-square"></i></p>
             </div>
-            
-            <img alt="Profile picture" class="w-24 h-24 rounded-full mb-4" src="{{ profile_picture }}" />
-
             <nav class="flex flex-col w-full">
                 <a href="{% url 'recruiter_dashboard' %}" class="bg-[#1cdeb0] text-white py-2 px-4 rounded-xl mb-2 text-center">Overview</a>
                 <a href="{% url 'job_list' %}" class="bg-white text-teal-900 py-2 px-4 rounded-xl mb-2 text-center">Active Jobs</a>
@@ -72,6 +70,7 @@
             <h2 class="text-xl font-bold mb-4">Job Listings</h2>
 
             <!-- Job Count Display -->
+            <p class="text-lg font-semibold text-gray-900">Total jobs found: {{ page_obj.paginator.count }}</p>
 
             <div class="bg-[#1dddb0] p-6 rounded-xl overflow-x-auto">
                 {% if page_obj %}

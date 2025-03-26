@@ -33,7 +33,7 @@ def recruiter_dashboard(request):
     paused_jobs = JobPost.objects.filter(recruiter=recruiter, status="paused").count()
 
     # Get profile picture (default if not uploaded)
-    profile_picture = recruiter.profile_pic.url if recruiter.profile_pic else staticfiles_storage.url('images/default-profile.png')
+    profile_picture = recruiter.profile_picture.url if recruiter.profile_picture else staticfiles_storage.url('images/default-profile.png')
 
     context = {
         "total_jobs": total_jobs,
@@ -42,11 +42,10 @@ def recruiter_dashboard(request):
         "open_jobs": open_jobs,
         "closed_jobs": closed_jobs,
         "paused_jobs": paused_jobs,
-        "recruiter_name": f"{recruiter.username}",
+        "recruiter_name": f"{recruiter.first_name} {recruiter.last_name}",
         "profile_picture": profile_picture,
     }
     return render(request, "recruiter/recruiter_dashboard.html", context)
-
 
 
 
