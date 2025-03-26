@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from .forms import CustomUserCreationForm, CustomLoginForm
 from django.contrib.auth.decorators import login_required
+import os
+
 import shutil
 from django.conf import settings
 import os
@@ -20,20 +22,11 @@ def register(request):
                 user.company_name = None  # Applicants don't need company names
             
             # Handle profile picture
-            from django.conf import settings
-            import os
-            from django.core.files import File
-
             if 'profile_pic' in request.FILES:
                 user.profile_pic = request.FILES['profile_pic']
             else:
-                default_image_path = os.path.join(settings.BASE_DIR, 'static', 'images', 'profile.png')
-
-                if os.path.exists(default_image_path):
-                    with open(default_image_path, 'rb') as f:
-                        user.profile_pic.save('profile.png', File(f))
-                else:
-                    print("Default profile image not found!")
+                default_image_path = os.path.join(settings.STATIC_ROOT, 'images/profile.png')
+                user.profile_pic.save('profile.png', open(default_image_path, 'rb'))  # Assign default image
 
             user.save()
             login(request, user)
@@ -42,7 +35,6 @@ def register(request):
         form = CustomUserCreationForm()
     
     return render(request, 'people/register.html', {'form': form})
-
 
 
 

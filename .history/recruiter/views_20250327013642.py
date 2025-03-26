@@ -6,21 +6,14 @@ from recruiter.forms import JobPostForm
 from recruiter.models import JobPost
 from people.models import CustomUser  # Import the user model
 from django.http import HttpResponseForbidden
-from django.contrib.staticfiles.storage import staticfiles_storage
 
 def is_recruiter(user):
     """Helper function to check if the user is a recruiter."""
     return user.is_authenticated and user.role == "recruiter"
 
-def get_recruiter_context(user):
-    """Helper function to get recruiter-related context data."""
-    profile_picture = user.profile_pic.url if user.profile_pic else staticfiles_storage.url('images/default-profile.png')
-    return {
-        "recruiter_name": user.username,
-        "profile_picture": profile_picture,
-    }
-
 # 🔹 Recruiter Dashboard (Shows Only Recruiter's Jobs)
+from django.contrib.staticfiles.storage import staticfiles_storage
+
 @login_required
 def recruiter_dashboard(request):
     if request.user.role != 'recruiter':  # Ensure only recruiters access this view
@@ -39,6 +32,9 @@ def recruiter_dashboard(request):
     closed_jobs = JobPost.objects.filter(recruiter=recruiter, status="closed").count()
     paused_jobs = JobPost.objects.filter(recruiter=recruiter, status="paused").count()
 
+    # Get profile picture (default if not uploaded)
+    profile_picture = recruiter.profile_pic.url if recruiter.profile_pic else staticfiles_storage.url('images/default-profile.png')
+
     context = {
         "total_jobs": total_jobs,
         "total_applicants": total_applicants,
@@ -46,9 +42,12 @@ def recruiter_dashboard(request):
         "open_jobs": open_jobs,
         "closed_jobs": closed_jobs,
         "paused_jobs": paused_jobs,
+        "recruiter_name": f"{recruiter.username}",
+        "profile_picture": profile_picture,
     }
-    context.update(get_recruiter_context(recruiter))
     return render(request, "recruiter/recruiter_dashboard.html", context)
+
+
 
 
 # 🔹 Job List (Applicants See All, Recruiters See Their Jobs)
@@ -65,11 +64,9 @@ def job_list(request):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
-    context = {
-        'page_obj': page_obj,
-    }
-    context.update(get_recruiter_context(request.user))
-    return render(request, 'recruiter/job_list.html', context)
+    return render(request, 'recruiter/job_list.html', {
+        'page_obj': page_obj
+    })
 
 # 🔹 Job Creation (Only Recruiters)
 @login_required
@@ -88,12 +85,11 @@ def job_create_combined(request):
     else:
         form = JobPostForm()
 
-    context = {'form': form}
-    context.update(get_recruiter_context(request.user))
-    return render(request, 'recruiter/job_form_combined.html', context)
+    return render(request, 'recruiter/job_form_combined.html', {'form': form})
 
 
 # 🔹 Job Edit (Only Recruiter Who Created It)
+
 @login_required
 def job_edit(request, id):
     job = get_object_or_404(JobPost, id=id)
@@ -114,9 +110,7 @@ def job_edit(request, id):
     else:
         form = JobPostForm(instance=job)
 
-    context = {'form': form, 'job': job}
-    context.update(get_recruiter_context(request.user))
-    return render(request, 'recruiter/job_edit.html', context)
+    return render(request, 'recruiter/job_edit.html', {'form': form, 'job': job})
 
 
 # 🔹 Job Delete (Only Recruiter Who Created It)
@@ -137,6 +131,4 @@ def job_delete(request, id):
 # View to show details of a single job post
 def job_description(request, job_id):  # ✅ Match with URL pattern
     job = get_object_or_404(JobPost, id=job_id)
-    context = {'job': job}
-    context.update(get_recruiter_context(request.user))
-    return render(request, 'recruiter/job_description.html', context)
+    return render(request, 'recruiter/job_description.html', {'job': job})

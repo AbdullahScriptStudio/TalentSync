@@ -155,10 +155,12 @@
 <body>
     <a href="{% url 'user_login' %}" class="back-button">← Back to Home</a>
 
-    <div class="container" >
+    <div class="container" style="transform: scale(0.9); transform-origin: center;">
         <!-- Register Section -->
         <div class="register-section">
             <div class="lg-sec">
+                <h1>Create Your Account</h1>
+
                 <!-- Register Form -->
                 <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
@@ -214,6 +216,9 @@
                         <button type="submit">Register</button>
                     </div>
 
+                    <p style="text-align: center; margin-top: 10px;">
+                        Already have an account? <a href="{% url 'user_login' %}" style="color: #113a41;">Login</a>
+                    </p>
                 </form>
             </div>
         </div>
