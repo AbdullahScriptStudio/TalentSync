@@ -18,24 +18,6 @@
             align-items: center;
             justify-content: center;
             min-height: 100vh;
-            flex-direction: column;
-        }
-
-        .back-button {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            background-color: #113a41;
-            color: white;
-            padding: 10px 15px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-size: 14px;
-            transition: background-color 0.3s;
-        }
-
-        .back-button:hover {
-            background-color: #0d2e35;
         }
 
         .container {
@@ -127,8 +109,6 @@
 </head>
 
 <body>
-    <a href="{% url 'user_login' %}" class="back-button">← Back to Home</a>
-
     <div class="container">
         <!-- Login Section -->
         <div class="login-section">

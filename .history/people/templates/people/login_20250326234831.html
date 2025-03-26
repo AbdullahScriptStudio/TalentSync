@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Your Gateway to Success</title>
+    <title>Recruiter Portal Login</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -18,24 +18,6 @@
             align-items: center;
             justify-content: center;
             min-height: 100vh;
-            flex-direction: column;
-        }
-
-        .back-button {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            background-color: #113a41;
-            color: white;
-            padding: 10px 15px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-size: 14px;
-            transition: background-color 0.3s;
-        }
-
-        .back-button:hover {
-            background-color: #0d2e35;
         }
 
         .container {
@@ -49,7 +31,7 @@
 
         .login-section {
             flex: 1;
-            padding: 50px;
+            padding: 40px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -57,16 +39,12 @@
         }
 
         .login-section h1 {
-            font-size: 28px;
-            font-weight: 600;
-            color: #113a41;
-            text-align: center;
-            margin-bottom: 20px;
+            font-weight: 450;
         }
 
         .form-group label {
-            font-weight: 400;
-            font-size: 0.9rem;
+            font-weight: 300;
+            font-size: 0.8rem;
         }
 
         .image-section {
@@ -95,23 +73,20 @@
 
         .form-group input {
             width: 100%;
-            padding: 12px;
+            padding: 10px;
             border: 2px solid #000000;
             border-radius: 40px;
             box-sizing: border-box;
-            font-size: 16px;
         }
 
         .form-group button {
             background-color: #113a41;
             color: white;
-            padding: 12px 18px;
+            padding: 10px 15px;
             border: none;
             border-radius: 40px;
             cursor: pointer;
             width: 100%;
-            font-size: 16px;
-            font-weight: 500;
         }
 
         .lg-sec {
@@ -127,13 +102,11 @@
 </head>
 
 <body>
-    <a href="{% url 'user_login' %}" class="back-button">← Back to Home</a>
-
     <div class="container">
         <!-- Login Section -->
         <div class="login-section">
             <div class="lg-sec">
-                <h1>Your Gateway to Success</h1>
+                <h1>Recruiter Portal<br>Login</h1>
 
                 <!-- Login Form -->
                 <form method="POST">
@@ -142,13 +115,13 @@
                     <!-- Show errors if login fails -->
                     {% if form.errors %}
                     <div class="error-message">
-                        Invalid username or password. Please try again.
+                        Invalid credentials. Please try again.
                     </div>
                     {% endif %}
 
                     <div class="form-group">
-                        <label for="username">Username</label>
-                        <input type="text" id="username" name="username" required>
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="username" required>
                     </div>
 
                     <div class="form-group">

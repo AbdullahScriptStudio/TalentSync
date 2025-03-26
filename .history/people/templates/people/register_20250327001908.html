@@ -18,6 +18,7 @@
             align-items: center;
             justify-content: center;
             min-height: 100vh;
+            background-color: #f4f6f9;
         }
 
         .back-button {
@@ -44,6 +45,8 @@
             max-width: 1600px;
             overflow: hidden;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: white;
+            border-radius: 10px;
         }
 
         .register-section {
@@ -63,42 +66,43 @@
             margin-bottom: 20px;
         }
 
-        .form-group label {
-            font-weight: 400;
-            font-size: 0.9rem;
-        }
-
-        .image-section {
-            flex: 1;
-            background-image: url('{% static "images/register.svg" %}');
-            background-size: cover;
-            background-position: center;
-            position: relative;
-            box-shadow: 15px 0px 8px rgba(0, 0, 0, 0.1);
-        }
-
         .form-group {
             margin-bottom: 20px;
             position: relative;
             width: 100%;
         }
 
-        .form-group .toggle-password {
-            position: absolute;
-            right: 15px;
-            top: 60%;
-            transform: translateY(-50%);
-            cursor: pointer;
-            color: #bbbcaf;
+        .form-group label {
+            font-weight: 500;
+            font-size: 0.9rem;
+            display: block;
+            margin-bottom: 5px;
         }
 
-        .form-group input {
+        .form-group input, .form-group select {
             width: 100%;
             padding: 12px;
             border: 2px solid #000000;
             border-radius: 40px;
             box-sizing: border-box;
             font-size: 16px;
+            background-color: white;
+        }
+
+        /* Improved Dropdown */
+        .form-group select {
+            appearance: none;
+            background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><polygon fill="%23000000" points="0,0 20,0 10,10"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 15px;
+            cursor: pointer;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .form-group select:hover {
+            border-color: #1cdeb0;
         }
 
         .form-group button {
@@ -111,6 +115,11 @@
             width: 100%;
             font-size: 16px;
             font-weight: 500;
+            transition: background-color 0.3s;
+        }
+
+        .form-group button:hover {
+            background-color: #0d2e35;
         }
 
         .lg-sec {
@@ -121,6 +130,25 @@
             color: red;
             font-size: 14px;
             margin-bottom: 10px;
+        }
+
+        /* Already Have an Account Text */
+        .login-text {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .login-text a {
+            color: #113a41;
+            font-weight: 500;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .login-text a:hover {
+            color: #0d2e35;
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -183,11 +211,11 @@
                     <div class="form-group">
                         <button type="submit">Register</button>
                     </div>
-
-                    <div class="form-group">
-                        <button type="button" onclick="window.location.href='{% url 'user_login' %}'">Already have an account? Login</button>
-                    </div>
                 </form>
+
+                <div class="login-text">
+                    Already have an account? <a href="{% url 'user_login' %}">Login here</a>
+                </div>
             </div>
         </div>
 
@@ -221,7 +249,6 @@
             }
         });
 
-        // Trigger change on page load
         document.getElementById("role").dispatchEvent(new Event("change"));
     </script>
 </body>

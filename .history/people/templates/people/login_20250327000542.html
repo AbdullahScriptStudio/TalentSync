@@ -57,40 +57,26 @@
         }
 
         .login-section h1 {
-            font-size: 28px;
+            font-size: 32px;
             font-weight: 600;
             color: #113a41;
             text-align: center;
             margin-bottom: 20px;
         }
 
-        .form-group label {
-            font-weight: 400;
-            font-size: 0.9rem;
-        }
-
-        .image-section {
-            flex: 1;
-            background-image: url('{% static "images/login.svg" %}');
-            background-size: cover;
-            background-position: center;
-            position: relative;
-            box-shadow: -15px 0px 8px rgba(0, 0, 0, 0.1);
-        }
-
         .form-group {
             margin-bottom: 20px;
             position: relative;
             width: 100%;
+            max-width: 400px;
         }
 
-        .form-group .toggle-password {
-            position: absolute;
-            right: 15px;
-            top: 60%;
-            transform: translateY(-50%);
-            cursor: pointer;
-            color: #bbbcaf;
+        .form-group label {
+            font-size: 16px;
+            font-weight: 500;
+            color: #113a41;
+            display: block;
+            margin-bottom: 5px;
         }
 
         .form-group input {
@@ -102,81 +88,92 @@
             font-size: 16px;
         }
 
+        .form-group .toggle-password {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #bbbcaf;
+        }
+
         .form-group button {
             background-color: #113a41;
             color: white;
-            padding: 12px 18px;
+            padding: 12px 15px;
             border: none;
             border-radius: 40px;
             cursor: pointer;
             width: 100%;
             font-size: 16px;
             font-weight: 500;
+            transition: background-color 0.3s;
         }
 
-        .lg-sec {
-            width: 60%;
+        .form-group button:hover {
+            background-color: #0d2e35;
         }
 
-        .error-message {
-            color: red;
-            font-size: 14px;
-            margin-bottom: 10px;
+        .image-section {
+            flex: 1;
+            background-image: url({% static 'images/login.svg' %});
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .image-section {
+                display: none;
+            }
         }
     </style>
 </head>
 
 <body>
-    <a href="{% url 'user_login' %}" class="back-button">← Back to Home</a>
+    <a href="{% url 'home' %}" class="back-button">← Back to Home</a>
 
     <div class="container">
-        <!-- Login Section -->
         <div class="login-section">
-            <div class="lg-sec">
-                <h1>Your Gateway to Success</h1>
-
-                <!-- Login Form -->
-                <form method="POST">
-                    {% csrf_token %}
-
-                    <!-- Show errors if login fails -->
-                    {% if form.errors %}
-                    <div class="error-message">
-                        Invalid username or password. Please try again.
-                    </div>
-                    {% endif %}
-
-                    <div class="form-group">
-                        <label for="username">Username</label>
-                        <input type="text" id="username" name="username" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" id="password" name="password" required>
-                        <i class="fas fa-eye toggle-password" id="togglePassword"></i>
-                    </div>
-
-                    <div class="form-group">
-                        <button type="submit">Login</button>
-                    </div>
-
-                    <div class="form-group">
-                        <button type="button" onclick="window.location.href='{% url 'register' %}'">Register</button>
-                    </div>
-                </form>
-            </div>
+            <h1>Your Gateway to Success</h1>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                    <i class="fas fa-eye toggle-password" id="togglePassword"></i>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Login</button>
+                </div>
+                <div class="form-group">
+                    <button type="button" onclick="window.location.href='{% url 'register' %}'">Register</button>
+                </div>
+            </form>
         </div>
-
-        <!-- Image Section -->
         <div class="image-section"></div>
     </div>
 
     <script>
-        // Toggle Password Visibility
         document.getElementById("togglePassword").addEventListener("click", function () {
             var passwordField = document.getElementById("password");
-            passwordField.type = passwordField.type === "password" ? "text" : "password";
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                this.classList.remove("fa-eye");
+                this.classList.add("fa-eye-slash");
+            } else {
+                passwordField.type = "password";
+                this.classList.remove("fa-eye-slash");
+                this.classList.add("fa-eye");
+            }
         });
     </script>
 </body>
