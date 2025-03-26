@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Job Post - Combined Form</title>
+    <style>
+        /* Add styles here for your form */
+    </style>
+</head>
+
+<body class="bg-gray-100">
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <div class="bg-[#003634] text-white w-1/4 p-6 flex flex-col items-center fixed h-full">
+            <div class="flex items-center mb-8">
+                <img alt="TalentSync logo" class="w-48 h-auto" src="{% static 'images/logo.svg' %}" />
+            </div>
+            <img alt="Profile picture of John Smith" class="w-24 h-24 rounded-full mb-4" height="100" src="{% static 'images/dog-profile.svg' %}" width="100" />
+            <div class="text-center mb-4">
+                <p class="text-sm">Hello</p>
+                <p class="text-lg">{{ user.first_name }} {{ user.last_name }} <i class="fa-regular fa-pen-to-square"></i></p>
+            </div>
+            <nav class="flex flex-col w-full">
+                <a href="overviewDashboard.html" class="bg-[#1cdeb0] text-white py-2 px-4 rounded mb-2" style="border-radius: 0.5rem;color: rgb(0 0 0); text-align: center;">Overview</a>
+                <a href="aciveJobsDashboard.html" class="bg-white text-teal-900 py-2 px-4 rounded mb-2" style="border-radius: 0.5rem;color: rgb(0 0 0); text-align: center;">Active Jobs</a>
+                <a href="applicantsDashboard.html" class="bg-white text-teal-900 py-2 px-4 rounded mb-2" style="border-radius: 0.5rem;color: rgb(0 0 0); text-align: center;">Applicants</a>
+                <a href="#" class="bg-white text-teal-900 py-2 px-4 rounded mb-2" style="border-radius: 0.5rem;color: rgb(0 0 0); text-align: center;">Profile &amp; Settings</a>
+            </nav>
+            <button class="mt-auto text-white">Sign Out</button>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 p-10 ml-[25%] overflow-y-auto">
+            <div class="bg-[#1dddb0] rounded-xl shadow-lg">
+                <div>
+                    <h2 class="bg-[#003634] text-white font-bold mb-6 p-4 rounded-xl">Add Job</h2>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="flex justify-center mb-6">
+                    <div class="w-1/3 h-1 bg-gray-300 rounded-full">
+                        <div class="h-full bg-teal-500 rounded-full" style="width: 100%;"></div> <!-- 100% for step 3 -->
+                    </div>
+                </div>
+
+                <div class="p-6 rounded-xl">
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Job Details</h3>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <!-- All Form Fields Combined Here -->
+                            {{ form.as_p }}
+                        </div>
+
+                        <div class="flex justify-between mt-6">
+                            <button class="bg-[#003634] text-white py-2 px-6 rounded-xl" type="submit">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

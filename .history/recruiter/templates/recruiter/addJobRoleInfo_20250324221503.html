@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Overview Dashboard</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+        body {
+            font-family: "Poppins", sans-serif;
+            background-color: white;
+        }
+
+        /* From Uiverse.io by adamgiebl */
+        button {
+            font-size: 18px;
+            display: inline-block;
+            outline: 0;
+            border: 0;
+            cursor: pointer;
+            will-change: box-shadow, transform;
+            background: radial-gradient(100% 100% at 100% 0%, #003634 0%, #003634 100%);
+            box-shadow: 0px 0.01em 0.01em rgb(45 35 66 / 40%), 0px 0.3em 0.7em -0.01em rgb(45 35 66 / 30%), inset 0px -0.01em 0px rgb(0 54 52 / 50%);
+            padding: 0 2em;
+            border-radius: 0.3em;
+            color: #fff;
+            height: 2.6em;
+            text-shadow: 0 1px 0 rgb(0 0 0 / 40%);
+            transition: box-shadow 0.15s ease, transform 0.15s ease;
+        }
+
+        button:hover {
+            box-shadow: 0px 0.1em 0.2em rgb(0 54 52 / 40%), 0px 0.4em 0.7em -0.1em rgb(0 54 52 / 30%), inset 0px -0.1em 0px #003634;
+            transform: translateY(-0.1em);
+        }
+
+        button:active {
+            box-shadow: inset 0px 0.1em 0.6em #003634;
+            transform: translateY(0em);
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <div class="bg-[#003634] text-white w-1/4 p-6 flex flex-col items-center fixed h-full" style="    padding: 4rem;">
+            <div class="flex items-center mb-8">
+                <img alt="TalentSync logo" class="w-48 h-auto" src="{% static 'recruiter/images/logo.png' %}" />
+            </div>
+            <img alt="Profile picture of John Smith" class="w-24 h-24 rounded-full mb-4" height="100" src="images/dog-profile.svg" width="100" />
+            <div class="text-center mb-4">
+                <p class="text-sm">Hello</p>
+                <p class="text-lg">John Smith <i class="fa-regular fa-pen-to-square"></i></p>
+            </div>
+            <nav class="flex flex-col w-full">
+                <a href="overviewDashboard.html" class="bg-[#1cdeb0] text-white py-2 px-4 rounded mb-2" style="border-radius: 0.5rem;color: rgb(0 0 0); text-align: center;">Overview</a >
+                <a href="aciveJobsDashboard.html" class="bg-white text-teal-900 py-2 px-4 rounded mb-2" style="border-radius: 0.5rem;color: rgb(0 0 0); text-align: center;">Active Jobs</a >
+                <a href="applicantsDashboard.html" class="bg-white text-teal-900 py-2 px-4 rounded mb-2" style="border-radius: 0.5rem;color: rgb(0 0 0); text-align: center;">Applicants</a >
+                <a href="#" class="bg-white text-teal-900 py-2 px-4 rounded mb-2" style="border-radius: 0.5rem;color: rgb(0 0 0); text-align: center;">Profile &amp; Settings</a >
+            </nav>
+            <button class="mt-auto text-white">Sign Out</button>
+        </div>
+        <!-- Main Content -->
+        <div class="flex-1 p-10 ml-[25%] overflow-y-auto">
+            <div class="bg-[#1dddb0] rounded-xl shadow-lg">
+                <div>
+                    <h2 class="bg-[#003634] text-white font-normal text-2xl mb-6 p-4 rounded-xl">Add Job</h2>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-2xl font-bold text-[#003634] mb-4">Role Info</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 p-4">
+                        <div>
+                            <label class="block text-lg font-bold mb-2">Job Title</label>
+                            <input class="w-full p-3 text-sm  border rounded-xl" placeholder="Data Engineer" type="text" />
+                        </div>
+                        <div>
+                            <label for="countries" class="block text-lg font-semibold mb-2">Select a Country:</label>
+                            <select id="countries" class="w-full p-3 text-sm  border rounded-xl focus:ring focus:ring-blue-300">
+                                <option disabled selected>Select a country</option>
+                                <option>United States</option>
+                                <option>Canada</option>
+                                <option>France</option>
+                                <option>Germany</option>
+                                <option>United Kingdom</option>
+                                <option>Japan</option>
+                                <option>Australia</option>
+                                <option>China</option>
+                                <option>India</option>
+                                <option>Brazil</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="states" class="block text-lg font-bold mb-2">State/Province</label>
+                            <select id="states" class="w-full p-3 text-sm border rounded-xl focus:ring focus:ring-blue-300">
+                                <option disabled selected>Select a state/province</option>
+                                <option>California</option>
+                                <option>Texas</option>
+                                <option>Ontario</option>
+                                <option>Quebec</option>
+                                <option>Île-de-France</option>
+                                <option>Bavaria</option>
+                                <option>New South Wales</option>
+                                <option>Tokyo</option>
+                                <option>Maharashtra</option>
+                                <option>São Paulo</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="cities" class="block text-lg font-bold mb-2">City</label>
+                            <select id="cities" class="w-full p-3 text-sm border rounded-xl focus:ring focus:ring-blue-300">
+                                <option disabled selected>Select a city</option>
+                                <option>New York</option>
+                                <option>Los Angeles</option>
+                                <option>Toronto</option>
+                                <option>Montreal</option>
+                                <option>Paris</option>
+                                <option>Munich</option>
+                                <option>Sydney</option>
+                                <option>Tokyo</option>
+                                <option>Mumbai</option>
+                                <option>São Paulo</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-lg font-bold mb-2">Company</label>
+                            <input class="w-full p-3 text-sm border rounded-xl" placeholder="Smart Solutions Inc" type="text" />
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-between mt-6">
+                        <button class="bg-[#003634] text-white py-2 px-6 rounded-xl" >Back</button>
+                        <button class="bg-[#003634] text-white py-2 px-6 rounded-xl" onclick="window.location.href='addJobJobDescOne.html'">Next</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

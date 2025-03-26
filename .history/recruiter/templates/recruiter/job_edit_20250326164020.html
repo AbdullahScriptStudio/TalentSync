@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Edit Job</title>
+</head>
+
+<body class="bg-gray-100">
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <div class="bg-[#003634] text-white w-1/4 p-6 flex flex-col items-center fixed h-full" style="padding: 4rem;">
+            <div class="flex items-center mb-8">
+                <img alt="TalentSync logo" class="w-48 h-auto" src="{% static 'images/logo.svg' %}" />
+            </div>
+            <img alt="Profile picture of John Smith" class="w-24 h-24 rounded-full mb-4" height="100" src="{% static 'images/dog-profile.svg' %}" width="100" />
+            <div class="text-center mb-4">
+                <p class="text-sm">Hello</p>
+                <p class="text-lg">{{ user.first_name }} {{ user.last_name }} <i class="fa-regular fa-pen-to-square"></i></p>
+            </div>
+            <nav class="flex flex-col w-full">
+                <a href="overviewDashboard.html" class="bg-white text-white py-2 px-4 rounded mb-2" style="border-radius: 0.5rem;color: rgb(0 0 0); text-align: center;">Overview</a>
+                <a href="activeJobsDashboard.html" class="bg-[#1cdeb0] text-teal-900 py-2 px-4 rounded mb-2" style="border-radius: 0.5rem;color: rgb(0 0 0); text-align: center;">Active Jobs</a>
+                <a href="applicantsDashboard.html" class="bg-white text-teal-900 py-2 px-4 rounded mb-2" style="border-radius: 0.5rem;color: rgb(0 0 0); text-align: center;">Applicants</a>
+                <a href="#" class="bg-white text-teal-900 py-2 px-4 rounded mb-2" style="border-radius: 0.5rem;color: rgb(0 0 0); text-align: center;">Profile &amp; Settings</a>
+            </nav>
+            <button class="mt-auto text-white">Sign Out</button>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 p-10 ml-[25%] overflow-y-auto">
+            <div class="bg-[#1dddb0] p-6 rounded-xl overflow-x-auto shadow-lg">
+                <h2 class="text-lg font-bold mb-4 bg-[#003634] text-white p-4 rounded-xl">Edit Job</h2>
+
+                <!-- Job Information Form -->
+                <form method="POST" class="space-y-6">
+                    {% csrf_token %}
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {% for field in form %}
+                            <div>
+                                <label class="block text-lg font-semibold mb-2">{{ field.label }}</label>
+                                 {{ field }}
+                                 {% if field.errors %}
+                                     <p class="text-red-500 text-sm">{{ field.errors }}</p>
+                                 {% endif %}
+                             </div>
+                         {% endfor %}
+                    </div>
+
+                    <div class="flex justify-between mt-6">
+                        <button type="submit" class="bg-[#003634] text-white py-2 px-6 rounded-xl shadow-md hover:bg-[#002522] transition">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

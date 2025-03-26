@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Edit Job</title>
+</head>
+
+<body class="bg-gray-100">
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <div class="bg-[#003634] text-white w-1/4 p-6 flex flex-col items-center fixed h-full" style="padding: 4rem;">
+            <div class="flex items-center mb-8">
+                <img alt="TalentSync logo" class="w-48 h-auto" src="{% static 'images/logo.svg' %}" />
+            </div>
+            <img alt="Profile picture of John Smith" class="w-24 h-24 rounded-full mb-4" height="100" src="{% static 'images/dog-profile.svg' %}" width="100" />
+            <div class="text-center mb-4">
+                <p class="text-sm">Hello</p>
+                <p class="text-lg">{{ user.first_name }} {{ user.last_name }} <i class="fa-regular fa-pen-to-square"></i></p>
+            </div>
+            <nav class="flex flex-col w-full">
+                <a href="overviewDashboard.html" class="bg-white text-white py-2 px-4 rounded mb-2" style="border-radius: 0.5rem;color: rgb(0 0 0); text-align: center;">Overview</a>
+                <a href="activeJobsDashboard.html" class="bg-[#1cdeb0] text-teal-900 py-2 px-4 rounded mb-2" style="border-radius: 0.5rem;color: rgb(0 0 0); text-align: center;">Active Jobs</a>
+                <a href="applicantsDashboard.html" class="bg-white text-teal-900 py-2 px-4 rounded mb-2" style="border-radius: 0.5rem;color: rgb(0 0 0); text-align: center;">Applicants</a>
+                <a href="#" class="bg-white text-teal-900 py-2 px-4 rounded mb-2" style="border-radius: 0.5rem;color: rgb(0 0 0); text-align: center;">Profile &amp; Settings</a>
+            </nav>
+            <button class="mt-auto text-white">Sign Out</button>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 p-10 ml-[25%] overflow-y-auto">
+            <div class="bg-[#1dddb0] p-6 rounded-xl overflow-x-auto">
+                <h2 class="text-lg font-bold mb-4">Edit Job</h2>
+
+                <!-- Job Information Form -->
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-lg font-semibold mb-2">Job Title</label>
+                            <input type="text" class="w-full p-3 text-sm border rounded-lg" name="title" value="{{ form.title.value }}" required />
+                            {% if form.title.errors %}
+                                <p class="text-red-500 text-sm">{{ form.title.errors }}</p>
+                            {% endif %}
+                        </div>
+
+                        <div>
+                            <label class="block text-lg font-semibold mb-2">Company</label>
+                            <input type="text" class="w-full p-3 text-sm border rounded-lg" name="company" value="{{ form.company.value }}" required />
+                            {% if form.company.errors %}
+                                <p class="text-red-500 text-sm">{{ form.company.errors }}</p>
+                            {% endif %}
+                        </div>
+
+                        <div>
+                            <label class="block text-lg font-semibold mb-2">Country</label>
+                            <select class="w-full p-3 text-sm border rounded-lg" name="country" required>
+                                <option value="DE" {% if form.country.value == "DE" %}selected{% endif %}>Germany</option>
+                            </select>
+                            {% if form.country.errors %}
+                                <p class="text-red-500 text-sm">{{ form.country.errors }}</p>
+                            {% endif %}
+                        </div>
+
+                        <div>
+                            <label class="block text-lg font-semibold mb-2">State/Province</label>
+                            <select class="w-full p-3 text-sm border rounded-lg" name="state_province" required>
+                                <option value="Bavaria" {% if form.state_province.value == "Bavaria" %}selected{% endif %}>Bavaria</option>
+                                <option value="Berlin" {% if form.state_province.value == "Berlin" %}selected{% endif %}>Berlin</option>
+                            </select>
+                            {% if form.state_province.errors %}
+                                <p class="text-red-500 text-sm">{{ form.state_province.errors }}</p>
+                            {% endif %}
+                        </div>
+
+                        <div>
+                            <label class="block text-lg font-semibold mb-2">City</label>
+                            <select class="w-full p-3 text-sm border rounded-lg" name="city" required>
+                                <option value="Munich" {% if form.city.value == "Munich" %}selected{% endif %}>Munich</option>
+                                <option value="Berlin" {% if form.city.value == "Berlin" %}selected{% endif %}>Berlin</option>
+                            </select>
+                            {% if form.city.errors %}
+                                <p class="text-red-500 text-sm">{{ form.city.errors }}</p>
+                            {% endif %}
+                        </div>
+
+                        <div>
+                            <label class="block text-lg font-semibold mb-2">Job Type</label>
+                            <select class="w-full p-3 text-sm border rounded-lg" name="job_type" required>
+                                <option value="full_time" {% if form.job_type.value == "full_time" %}selected{% endif %}>Full-time</option>
+                                <option value="part_time" {% if form.job_type.value == "part_time" %}selected{% endif %}>Part-time</option>
+                                <option value="contract" {% if form.job_type.value == "contract" %}selected{% endif %}>Contract</option>
+                                <option value="internship" {% if form.job_type.value == "internship" %}selected{% endif %}>Internship</option>
+                            </select>
+                            {% if form.job_type.errors %}
+                                <p class="text-red-500 text-sm">{{ form.job_type.errors }}</p>
+                            {% endif %}
+                        </div>
+
+                        <div>
+                            <label class="block text-lg font-semibold mb-2">Department</label>
+                            <select class="w-full p-3 text-sm border rounded-lg" name="department" required>
+                                <option value="engineering" {% if form.department.value == "engineering" %}selected{% endif %}>Engineering</option>
+                                <option value="marketing" {% if form.department.value == "marketing" %}selected{% endif %}>Marketing</option>
+                                <option value="sales" {% if form.department.value == "sales" %}selected{% endif %}>Sales</option>
+                                <option value="human_resources" {% if form.department.value == "human_resources" %}selected{% endif %}>Human Resources</option>
+                            </select>
+                            {% if form.department.errors %}
+                                <p class="text-red-500 text-sm">{{ form.department.errors }}</p>
+                            {% endif %}
+                        </div>
+
+                        <div>
+                            <label class="block text-lg font-semibold mb-2">Job Description</label>
+                            <textarea name="job_description" class="w-full p-3 text-sm border rounded-lg" placeholder="Enter the job description here..." required>{{ form.job_description.value }}</textarea>
+                            {% if form.job_description.errors %}
+                                <p class="text-red-500 text-sm">{{ form.job_description.errors }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between mt-6">
+                        <button type="submit" class="bg-[#003634] text-white py-2 px-6 rounded-xl">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
