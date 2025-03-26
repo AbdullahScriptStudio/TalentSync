@@ -97,24 +97,16 @@ def job_delete(request, id):
     return redirect('job_list')  # Redirect to the job list page
 
 
+
 def recruiter_dashboard(request):
     total_jobs = JobPost.objects.count()
-    total_applicants = 232  # Placeholder (update if you have an Applicant model)
-
-    # Get last 4 posted jobs
-    recent_jobs = JobPost.objects.order_by('-posted_at')[:4]
-
-    # Get job status counts
-    open_jobs = JobPost.objects.filter(status="open").count()
-    closed_jobs = JobPost.objects.filter(status="closed").count()
-    paused_jobs = JobPost.objects.filter(status="paused").count()
+    total_applicants = 232  # Placeholder (Update this if you have an Applicant model)
+    
+    recent_jobs = JobPost.objects.order_by('-posted_at')[:4]  # Get last 4 posted jobs
 
     context = {
         "total_jobs": total_jobs,
         "total_applicants": total_applicants,
         "recent_jobs": recent_jobs,
-        "open_jobs": open_jobs,
-        "closed_jobs": closed_jobs,
-        "paused_jobs": paused_jobs,
     }
     return render(request, "recruiter/recruiter_dashboard.html", context)
