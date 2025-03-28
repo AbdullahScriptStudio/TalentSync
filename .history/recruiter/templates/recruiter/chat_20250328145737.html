@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+    <div class="w-full max-w-md bg-white shadow-lg rounded-xl p-4 flex flex-col h-3/4">
+        <div class="text-lg font-semibold text-center mb-4">AI Chatbot</div>
+        <div id="chatbox" class="flex-1 overflow-y-auto p-2 border border-gray-300 rounded-md h-full"></div>
+        <div class="flex items-center mt-2">
+            <input id="userInput" type="text" class="flex-1 border border-gray-300 rounded-md p-2" placeholder="Type a message...">
+            <button id="sendButton" class="ml-2 bg-blue-500 text-white px-4 py-2 rounded-md">Send</button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("sendButton").addEventListener("click", sendMessage);
+        document.getElementById("userInput").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") sendMessage();
+        });
+
+        function sendMessage() {
+            const userInput = document.getElementById("userInput");
+            const message = userInput.value.trim();
+            if (!message) return;
+
+            appendMessage("You", message);
+            userInput.value = "";
+
+            fetch("/chatbot/api/", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ message: message })
+            })
+            .then(response => response.json())
+            .then(data => appendMessage("Bot", data.response || "Error fetching response"))
+            .catch(() => appendMessage("Bot", "Error connecting to server"));
+        }
+
+        function appendMessage(sender, text) {
+            const chatbox = document.getElementById("chatbox");
+            const messageDiv = document.createElement("div");
+            messageDiv.classList.add("mb-2", "p-2", "rounded-md", "max-w-xs", "text-white");
+            
+            if (sender === "You") {
+                messageDiv.classList.add("bg-blue-500", "self-end");
+            } else {
+                messageDiv.classList.add("bg-gray-700", "self-start");
+            }
+            
+            messageDiv.textContent = `${sender}: ${text}`;
+            chatbox.appendChild(messageDiv);
+            chatbox.scrollTop = chatbox.scrollHeight;
+        }
+    </script>
+</body>
+</html>
