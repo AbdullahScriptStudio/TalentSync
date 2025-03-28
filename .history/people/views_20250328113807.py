@@ -11,7 +11,7 @@ from .forms import CustomUserCreationForm  # Ensure your form is imported
 def register(request):
     """ Register a new user with profile picture handling """
     if request.method == 'POST':
-        form = CustomUserCreationForm(request.POST, request.FILES)
+        form = CustomUser CreationForm(request.POST, request.FILES)
         if form.is_valid():
             user = form.save(commit=False)
             
@@ -44,7 +44,7 @@ def register(request):
             login(request, user)
             return redirect('dashboard_redirect')
     else:
-        form = CustomUserCreationForm()
+        form = CustomUser CreationForm()
     
     return render(request, 'people/register.html', {'form': form})
 

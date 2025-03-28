@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Applications List</title>
+    <style>
+        body {
+            font-family: "Poppins", sans-serif;
+            background-color: white;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <div class="bg-[#003634] text-white w-1/4 p-6 flex flex-col items-center fixed h-full">
+            <div class="flex items-center mb-8">
+                <img alt="TalentSync logo" class="w-48 h-auto" src="{% static 'images/logo.svg' %}" />
+            </div>
+            <div class="text-center mb-4">
+                <p class="text-sm">Welcome</p>
+                <p class="text-lg">{{ request.user.username }} <i class="fa-regular fa-pen-to-square"></i></p>
+            </div>
+            <nav class="flex flex-col w-full">
+                <a href="{% url 'recruiter_dashboard' %}" class="bg-[#1cdeb0] text-white py-2 px-4 rounded-xl mb-2 text-center">Dashboard</a>
+                <a href="{% url 'applications_list' %}" class="bg-white text-teal-900 py-2 px-4 rounded-xl mb-2 text-center">Applications</a>
+                <a href="{% url 'job_list' %}" class="bg-white text-teal-900 py-2 px-4 rounded-xl mb-2 text-center">Job Posts</a>
+            </nav>
+            <a href="{% url 'user_logout' %}" class="mt-auto bg-red-500 py-2 px-6 rounded-xl">Sign Out</a>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 p-6 ml-[25%]">
+            <h2 class="text-xl font-bold mb-4">Applications List</h2>
+
+            <div class="bg-[#1dddb0] p-6 rounded-xl overflow-x-auto">
+                {% if applications %}
+                    <table class="min-w-full bg-white rounded-xl shadow-lg">
+                        <thead class="bg-[#003634] text-white">
+                            <tr>
+                                <th class="px-4 py-3 text-left font-normal">Applicant Name</th>
+                                <th class="px-4 py-3 text-left font-normal">Email</th>
+                                <th class="px-4 py-3 text-left font-normal">CV</th>
+                                <th class="px-4 py-3 text-left font-normal">Applied To</th>
+                                <th class="px-4 py-3 text-left font-normal">Date Applied</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for application in applications %}
+                                <tr class="border-b">
+                                    <td class="px-4 py-4">{{ application.applicant_name }}</td>
+                                    <td class="px-4 py-4">{{ application.applicant_email }}</td>
+                                    <td class="px-4 py-4">
+                                        <a href="{{ application.resume.url }}" class="text-blue-500 hover:underline" target="_blank">View CV</a>
+                                    </td>
+                                    <td class="px-4 py-4">{{ application.job_post.title }}</td>
+                                    <td class="px-4 py-4">{{ application.applied_at|date:"Y-m-d" }}</td>
+                                </tr>
+                            {% empty %}
+                                <tr>
+                                    <td colspan="5" class="text-center py-4">No applications available.</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <div class="text-center py-4">
+                        <p>No applications available.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

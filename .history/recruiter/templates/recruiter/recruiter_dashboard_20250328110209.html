@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Ensure Chart.js is loaded -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Recruiter Dashboard</title>
     <style>
         body {
@@ -64,6 +64,7 @@
                 <a href="#" class="bg-white text-teal-900 py-2 px-4 rounded-xl mb-2 text-center">Profile & Settings</a>
             </nav>
             <a href="{% url 'user_logout' %}" class="mt-auto bg-red-500 py-2 px-6 rounded-xl">Sign Out</a>
+
         </div>
 
         <!-- Main Content -->
@@ -89,7 +90,6 @@
                             <th class="px-4 py-2">Jobs</th>
                             <th class="px-4 py-2">Status</th>
                             <th class="px-4 py-2">Date Posted</th>
-                            <th class="px-4 py-2">Applicants</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -98,15 +98,10 @@
                             <td class="px-4 py-2">{{ job.title }}</td>
                             <td class="px-4 py-2">{{ job.get_status_display }}</td>
                             <td class="px-4 py-2">{{ job.posted_at|date:"d/m/Y" }}</td>
-                            <td class="px-4 py-2">
-                                <a href="{% url 'applications_list' %}?job_id={{ job.id }}" class="text-blue-500 hover:underline">
-                                    {{ job.applicant_count }}
-                                </a>
-                            </td>
                         </tr>
                         {% empty %}
                         <tr>
-                            <td colspan="4" class="text-center py-4">No jobs posted yet.</td>
+                            <td colspan="3" class="text-center py-4">No jobs posted yet.</td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -114,6 +109,7 @@
                 <a href="{% url 'job_list' %}" class="bg-[#003634] text-white py-2 px-6 rounded-xl mt-4 inline-block text-center">
                     View All
                 </a>
+                
             </div>
 
             <!-- Job Status Chart -->
@@ -122,31 +118,25 @@
                 <canvas id="jobChart"></canvas>
             </div>
 
-            <!-- ChartJS Script -->
-            <script>
-                var ctx = document.getElementById('jobChart').getContext('2d');
-                var jobChart = new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: ["Open", "Closed", "Paused"],
-                        datasets: [{
-                            label: 'Jobs Status',
-                            data: [{{ open_jobs }}, {{ closed_jobs }}, {{ paused_jobs }}],
-                            backgroundColor: ['#1dddb0', '#ff4d4d', '#ffc107']
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        scales: {
-                            y: {
-                                beginAtZero: true
-                            }
-                        }
-                    }
-                });
-            </script>
+            <button class="bg-[#003634] text-white py-2 px-6 rounded-xl mt-6" onclick="window.location.href='{% url 'job_create_combined' %}'">Add New Job</button>
         </div>
     </div>
+
+    <!-- ChartJS Script -->
+    <script>
+        var ctx = document.getElementById('jobChart').getContext('2d');
+        var jobChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ["Open", "Closed", "Paused"],
+                datasets: [{
+                    label: 'Jobs Status',
+                    data: [{{ open_jobs }}, {{ closed_jobs }}, {{ paused_jobs }}],
+                    backgroundColor: ['#1dddb0', '#ff4d4d', '#ffc107']
+                }]
+            }
+        });
+    </script>
 </body>
 
 </html>

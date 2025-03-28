@@ -29,9 +29,7 @@ def recruiter_dashboard(request):
 
     recruiter = request.user
     total_jobs = JobPost.objects.filter(recruiter=recruiter).count()
-
-    # Calculate total applicants for all jobs posted by the recruiter
-    total_applicants = Application.objects.filter(job_post__recruiter=recruiter).count()
+    total_applicants = 232  # Placeholder (update if needed)
 
     # Fetch only the recruiter's jobs
     recent_jobs = JobPost.objects.filter(recruiter=recruiter).order_by('-posted_at')[:4]
@@ -41,13 +39,9 @@ def recruiter_dashboard(request):
     closed_jobs = JobPost.objects.filter(recruiter=recruiter, status="closed").count()
     paused_jobs = JobPost.objects.filter(recruiter=recruiter, status="paused").count()
 
-    # Get the number of applications for each job
-    for job in recent_jobs:
-        job.applicant_count = Application.objects.filter(job_post=job).count()
-
     context = {
         "total_jobs": total_jobs,
-        "total_applicants": total_applicants,  # Updated to reflect actual count
+        "total_applicants": total_applicants,
         "recent_jobs": recent_jobs,
         "open_jobs": open_jobs,
         "closed_jobs": closed_jobs,
@@ -152,7 +146,6 @@ def job_description(request, job_id):  # ✅ Match with URL pattern
 
 
 from .models import Application
-
 @login_required
 def applications_list(request):
     # Fetch all applications for the jobs that the recruiter has posted
