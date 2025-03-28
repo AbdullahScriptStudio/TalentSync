@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <div class="bg-[#003634] text-white w-1/4 p-6 flex flex-col items-center fixed h-full">
+            <div class="flex items-center mb-8">
+                <img alt="TalentSync logo" class="w-48 h-auto" src="{% static 'images/logo.svg' %}" />
+            </div>
+            <div class="text-center mb-4">
+                <p class="text-sm">Greetings</p>
+                <p class="text-lg">{{ recruiter_name }} <i class="fa-regular fa-pen-to-square"></i></p>
+            </div>
+            
+            <img alt="Profile picture" class="w-24 h-24 rounded-full mb-4" src="{{ profile_picture }}" />
+
+            <nav class="flex flex-col w-full">
+                <a href="{% url 'recruiter_dashboard' %}" class="bg-[#1cdeb0] text-white py-2 px-4 rounded-xl mb-2 text-center">Overview</a>
+                <a href="{% url 'job_list' %}" class="bg-white text-teal-900 py-2 px-4 rounded-xl mb-2 text-center">Active Jobs</a>
+                <a href="#" class="bg-white text-teal-900 py-2 px-4 rounded-xl mb-2 text-center">Applicants</a>
+                <a href="#" class="bg-white text-teal-900 py-2 px-4 rounded-xl mb-2 text-center">Profile & Settings</a>
+            </nav>
+            <a href="{% url 'user_logout' %}" class="mt-auto bg-red-500 py-2 px-6 rounded-xl">Sign Out</a>
+
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 p-6 ml-[25%]">
+            <!-- Statistics Section -->
+            <div class="grid grid-cols-2 gap-4 mb-6">
+                <div class="stat-box">
+                    <p class="text-xl">Job Posted</p>
+                    <p class="text-4xl font-bold">{{ total_jobs }}</p>
+                </div>
+                <div class="stat-box">
+                    <p class="text-xl">Applicants</p>
+                    <p class="text-4xl font-bold">{{ total_applicants }}</p>
+                </div>
+            </div>
+
+            <!-- Job Table -->
+            <div class="table-container">
+                <h2 class="text-xl font-bold mb-4 text-white">Recent Jobs</h2>
+                <table class="min-w-full bg-white rounded-xl shadow-lg">
+                    <thead class="bg-[#003634] text-white">
+                        <tr>
+                            <th class="px-4 py-2">Jobs</th>
+                            <th class="px-4 py-2">Status</th>
+                            <th class="px-4 py-2">Date Posted</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for job in recent_jobs %}
+                        <tr class="border-b text-center">
+                            <td class="px-4 py-2">{{ job.title }}</td>
+                            <td class="px-4 py-2">{{ job.get_status_display }}</td>
+                            <td class="px-4 py-2">{{ job.posted_at|date:"d/m/Y" }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="3" class="text-center py-4">No jobs posted yet.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <a href="{% url 'job_list' %}" class="bg-[#003634] text-white py-2 px-6 rounded-xl mt-4 inline-block text-center">
+                    View All
+                </a>
+                
+            </div>
+
+            <!-- Job Status Chart -->
+            <div class="chart-container">
+                <h2 class="text-xl font-bold mb-4">Job Status Overview</h2>
+                <canvas id="jobChart"></canvas>
+            </div>
+
+            <button class="bg-[#003634] text-white py-2 px-6 rounded-xl mt-6" onclick="window.location.href='{% url 'job_create_combined' %}'">Add New Job</button>
+        </div>
+    </div>
+
+    <!-- ChartJS Script -->
+    <script>
+        var ctx = document.getElementById('jobChart').getContext('2d');
+        var jobChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ["Open", "Closed", "Paused"],
+                datasets: [{
+                    label: 'Jobs Status',
+                    data: [{{ open_jobs }}, {{ closed_jobs }}, {{ paused_jobs }}],
+                    backgroundColor: ['#1dddb0', '#ff4d4d', '#ffc107']
+                }]
+            }
+        });
+    </script>
+</body>
+
+</html>
+
+
+{% endblock %}

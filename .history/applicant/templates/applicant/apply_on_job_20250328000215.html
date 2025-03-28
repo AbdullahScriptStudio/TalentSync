@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Apply for {{ job_post.title }}</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap');
+
+        body {
+            font-family: "Poppins", sans-serif;
+            background-color: white;
+        }
+
+        button {
+            font-size: 18px;
+            display: inline-block;
+            outline: 0;
+            border: 0;
+            cursor: pointer;
+            will-change: box-shadow, transform;
+            background: radial-gradient(100% 100% at 100% 0%, #003634 0%, #003634 100%);
+            box-shadow: 0px 0.01em 0.01em rgb(45 35 66 / 40%), 0px 0.3em 0.7em -0.01em rgb(45 35 66 / 30%), inset 0px -0.01em 0px rgb(0 54 52 / 50%);
+            padding: 0 2em;
+            border-radius: 0.3em;
+            color: #fff;
+            height: 2.6em;
+            text-shadow: 0 1px 0 rgb(0 0 0 / 40%);
+            transition: box-shadow 0.15s ease, transform 0.15s ease;
+        }
+
+        button:hover {
+            box-shadow: 0px 0.1em 0.2em rgb(0 54 52 / 40%), 0px 0.4em 0.7em -0.1em rgb(0 54 52 / 30%), inset 0px -0.1em 0px #003634;
+            transform: translateY(-0.1em);
+        }
+
+        button:active {
+            box-shadow: inset 0px 0.1em 0.6em #003634;
+            transform: translateY(0em);
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <div class="bg-[#003634] text-white w-1/4 p-6 flex flex-col items-center fixed h-full">
+            <div class="flex items-center mb-8">
+                <img alt="TalentSync logo" class="w-48 h-auto" src="{% static 'images/logo.svg' %}" />
+            </div>
+            <div class="text-center mb-4">
+                <p class="text-sm">Greetings</p>
+                <p class="text-lg">{{ applicant_name }} <i class="fa-regular fa-pen-to-square"></i></p>
+            </div>
+            
+            <img alt="Profile picture" class="w-24 h-24 rounded-full mb-4" src="{{ profile_picture }}" />
+
+            <nav class="flex flex-col w-full">
+                <a href="{% url 'applicant_dashboard' %}" class="bg-[#1cdeb0] text-white py-2 px-4 rounded-xl mb-2 text-center">Dashboard</a>
+                <a href="{% url 'applicant_job_list' %}" class="bg-white text-teal-900 py-2 px-4 rounded-xl mb-2 text-center">Jobs</a>
+                <a href="#" class="bg-white text-teal-900 py-2 px-4 rounded-xl mb-2 text-center">Applied Jobs</a>
+            </nav>
+            <a href="{% url 'user_logout' %}" class="mt-auto bg-red-500 py-2 px-6 rounded-xl">Sign Out</a>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 p-10 ml-[25%] overflow-y-auto">
+            <div class="bg-[#1dddb0] p-6 rounded-xl shadow-lg">
+                <h2 class="text-lg font-bold mb-4 bg-[#003634] text-white p-4 rounded-xl">Apply for {{ job_post.title }}</h2>
+
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 p-4">
+                        <!-- Resume -->
+                        <div>
+                            <label for="resume" class="block text-lg font-semibold mb-2">Resume</label>
+                            <input type="file" name="resume" id="resume" class="w-full p-3 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500" required />
+                        </div>
+
+                        <!-- Cover Letter -->
+                        <div>
+                            <label for="cover_letter" class="block text-lg font-semibold mb-2">Cover Letter (Optional)</label>
+                            <textarea name="cover_letter" id="cover_letter" class="w-full p-3 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500" rows="4"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between mt-6">
+                        <a href="{% url 'applicant_job_list' %}" class="bg-[#003634] text-white py-2 px-6 rounded-xl">Cancel</a>
+                        <button type="submit" class="bg-[#003634] text-white py-2 px-6 rounded-xl">Submit Application</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

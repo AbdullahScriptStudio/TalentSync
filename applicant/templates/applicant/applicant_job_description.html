@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Job Description</title>
+</head>
+
+<body class="bg-gray-100">
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <div class="bg-[#003634] text-white w-1/4 p-6 flex flex-col items-center fixed h-full">
+            <div class="flex items-center mb-8">
+                <img alt="TalentSync logo" class="w-48 h-auto" src="{% static 'images/logo.svg' %}" />
+            </div>
+            <div class="text-center mb-4">
+                <p class="text-sm">Greetings</p>
+                <p class="text-lg">{{ applicant_name }} <i class="fa-regular fa-pen-to-square"></i></p>
+            </div>
+            
+            <img alt="Profile picture" class="w-24 h-24 rounded-full mb-4" src="{{ profile_picture }}" />
+
+            <nav class="flex flex-col w-full">
+                <a href="{% url 'applicant_dashboard' %}" class="bg-[#1cdeb0] text-white py-2 px-4 rounded-xl mb-2 text-center">Dashboard</a>
+                <a href="{% url 'applicant_job_list' %}" class="bg-white text-teal-900 py-2 px-4 rounded-xl mb-2 text-center">Active Jobs</a>
+                <a href="#" class="bg-white text-teal-900 py-2 px-4 rounded-xl mb-2 text-center">Profile & Settings</a>
+            </nav>
+            <a href="{% url 'user_logout' %}" class="mt-auto bg-red-500 py-2 px-6 rounded-xl">Sign Out</a>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 p-10 ml-[25%] overflow-y-auto">
+            <div class="bg-[#1dddb0] p-6 rounded-xl shadow-lg">
+                <h2 class="text-lg font-bold mb-4 bg-[#003634] text-white p-4 rounded-xl">Job Details</h2>
+
+                <!-- Job Information -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div><label class="block text-lg font-semibold">Job Title:</label> <p class="text-gray-900">{{ job.title }}</p></div>
+                    <div><label class="block text-lg font-semibold">Company:</label> <p class="text-gray-900">{{ job.company }}</p></div>
+                    <div><label class="block text-lg font-semibold">Country:</label> <p class="text-gray-900">{{ job.country }}</p></div>
+                    <div><label class="block text-lg font-semibold">State/Province:</label> <p class="text-gray-900">{{ job.state_province }}</p></div>
+                    <div><label class="block text-lg font-semibold">City:</label> <p class="text-gray-900">{{ job.city }}</p></div>
+                    <div><label class="block text-lg font-semibold">Job Type:</label> <p class="text-gray-900">{{ job.get_job_type_display }}</p></div>
+                    <div><label class="block text-lg font-semibold">Department:</label> <p class="text-gray-900">{{ job.department }}</p></div>
+                    <div><label class="block text-lg font-semibold">Experience (Min):</label> <p class="text-gray-900">{{ job.min_experience }} years</p></div>
+                    <div><label class="block text-lg font-semibold">Experience (Max):</label> <p class="text-gray-900">{{ job.max_experience }} years</p></div>
+                    <div><label class="block text-lg font-semibold">Salary (Min):</label> <p class="text-gray-900">{{ job.min_salary }} {{ job.get_salary_currency_display }}</p></div>
+                    <div><label class="block text-lg font-semibold">Salary (Max):</label> <p class="text-gray-900">{{ job.max_salary }} {{ job.get_salary_currency_display }}</p></div>
+                    <div><label class="block text-lg font-semibold">Skills Required:</label> <p class="text-gray-900">{{ job.skills_required }}</p></div>
+                    <div><label class="block text-lg font-semibold">Job Status:</label> <p class="text-gray-900">{{ job.get_status_display }}</p></div>
+                    <div class="col-span-2"><label class="block text-lg font-semibold">Job Description:</label> <p class="text-gray-900">{{ job.job_description }}</p></div>
+                </div>
+
+                <div class="flex justify-between mt-6">
+                    <a href="{% url 'applicant_job_list' %}" class="bg-[#003634] text-white py-2 px-6 rounded-xl">Back to Jobs</a>
+                    <a href="{% url 'apply_on_job' job.id %}" class="bg-[#003634] text-white py-2 px-6 rounded-xl">Apply</a>                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

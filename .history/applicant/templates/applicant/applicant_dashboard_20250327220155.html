@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Applicant Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        .sidebar {
+            width: 250px;
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            height: 100vh;
+        }
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+        }
+        .card {
+            background: #ecf0f1;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+        canvas {
+            width: 100% !important;
+            max-width: 600px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        th {
+            background: #3498db;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Applicant Dashboard</h2>
+        <ul>
+            <li>Dashboard</li>
+            <li>Available Jobs</li>
+            <li>My Applications</li>
+        </ul>
+    </div>
+    <div class="content">
+        <h1>Welcome, Applicant</h1>
+        <div class="card">
+            <h2>Job Posting Trend</h2>
+            <canvas id="jobTrendChart"></canvas>
+        </div>
+        <div class="card">
+            <h2>Available Jobs</h2>
+            <table>
+                <tr>
+                    <th>Job Title</th>
+                    <th>Company</th>
+                    <th>Location</th>
+                </tr>
+                <tr>
+                    <td>Software Engineer</td>
+                    <td>Tech Corp</td>
+                    <td>New York</td>
+                </tr>
+                <tr>
+                    <td>Data Scientist</td>
+                    <td>Data Solutions</td>
+                    <td>San Francisco</td>
+                </tr>
+            </table>
+        </div>
+        <div class="card">
+            <h2>My Applications</h2>
+            <table>
+                <tr>
+                    <th>Job Title</th>
+                    <th>Company</th>
+                    <th>Status</th>
+                </tr>
+                <tr>
+                    <td>UI/UX Designer</td>
+                    <td>Creative Inc.</td>
+                    <td>Under Review</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        const ctx = document.getElementById('jobTrendChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [{
+                    label: 'Job Postings',
+                    data: [5, 10, 8, 15, 12, 20],
+                    borderColor: 'blue',
+                    fill: false,
+                }]
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Chatbot</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-box" id="chat-box">
+            <div class="bot-message">Hello! I can assist you with recruitment, hiring, and job-related queries. How can I help you today?</div>
+        </div>
+        <div class="input-container">
+            <input type="text" id="user-input" placeholder="Ask about jobs, hiring, or recruitment...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        function sendMessage() {
+            let userInput = document.getElementById("user-input").value.trim();
+            if (userInput === "") return;
+
+            let chatBox = document.getElementById("chat-box");
+            let userMessage = `<div class="user-message">${userInput}</div>`;
+            chatBox.innerHTML += userMessage;
+
+            let allowedTopics = ["recruitment", "hiring", "jobs", "interviews", "resumes", "career", "employment"];
+            let isAllowed = allowedTopics.some(topic => userInput.toLowerCase().includes(topic));
+
+            let botResponse = isAllowed 
+                ? `<div class="bot-message">Great question! Let me help you with that...</div>` 
+                : `<div class="bot-message">I'm here to assist with recruitment, hiring, and job-related topics only.</div>`;
+
+            setTimeout(() => {
+                chatBox.innerHTML += botResponse;
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }, 500);
+
+            document.getElementById("user-input").value = "";
+        }
+    </script>
+</body>
+</html>

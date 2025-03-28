@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Job List</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Poppins:wght@100..900&display=swap');
+        
+        body {
+            font-family: "Poppins", sans-serif;
+            background-color: white;
+        }
+        
+        button {
+            font-size: 18px;
+            display: inline-block;
+            outline: 0;
+            border: 0;
+            cursor: pointer;
+            background: radial-gradient(100% 100% at 100% 0%, #003634 0%, #003634 100%);
+            box-shadow: 0px 0.01em 0.01em rgb(45 35 66 / 40%), 0px 0.3em 0.7em -0.01em rgb(45 35 66 / 30%), inset 0px -0.01em 0px rgb(0 54 52 / 50%);
+            padding: 0 2em;
+            border-radius: 0.3em;
+            color: #fff;
+            height: 2.6em;
+            text-shadow: 0 1px 0 rgb(0 0 0 / 40%);
+            transition: box-shadow 0.15s ease, transform 0.15s ease;
+        }
+        
+        button:hover {
+            box-shadow: 0px 0.1em 0.2em rgb(0 54 52 / 40%), 0px 0.4em 0.7em -0.1em rgb(0 54 52 / 30%), inset 0px -0.1em 0px #003634;
+            transform: translateY(-0.1em);
+        }
+        
+        button:active {
+            box-shadow: inset 0px 0.1em 0.6em #003634;
+            transform: translateY(0em);
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <div class="bg-[#003634] text-white w-1/4 p-6 flex flex-col items-center fixed h-full" style="padding: 4rem;">
+            <div class="flex items-center mb-8">
+                <img alt="TalentSync logo" class="w-48 h-auto" src="{% static 'images/logo.svg' %}" />
+            </div>
+            <div class="text-center mb-4">
+                <p class="text-sm">Greetings</p>
+                <p class="text-lg">{{ applicant_name }} <i class="fa-regular fa-pen-to-square"></i></p>
+            </div>
+            
+            <img alt="Profile picture" class="w-24 h-24 rounded-full mb-4" src="{{ profile_picture }}" />
+
+            <nav class="flex flex-col w-full">
+                <a href="{% url 'applicant_dashboard' %}" class="bg-[#1cdeb0] text-white py-2 px-4 rounded-xl mb-2 text-center">Dashboard</a>
+                <a href="{% url 'job_list' %}" class="bg-white text-teal-900 py-2 px-4 rounded-xl mb-2 text-center">Active Jobs</a>
+                <a href="#" class="bg-white text-teal-900 py-2 px-4 rounded-xl mb-2 text-center">Profile & Settings</a>
+            </nav>
+            <a href="{% url 'user_logout' %}" class="mt-auto bg-red-500 py-2 px-6 rounded-xl">Sign Out</a>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 p-6 ml-[25%]">
+            <h2 class="text-xl font-bold mb-4">Job Listings</h2>
+
+            <div class="bg-[#1dddb0] p-6 rounded-xl overflow-x-auto">
+                {% if page_obj %}
+                    <table class="min-w-full bg-white rounded-xl shadow-lg">
+                        <thead class="bg-[#003634] text-white">
+                            <tr>
+                                <th class="px-4 py-3 text-left font-normal">Job Title</th>
+                                <th class="px-4 py-3 text-left font-normal">Company</th>
+                                <th class="px-4 py-3 text-left font-normal">Department</th>
+                                <th class="px-4 py-3 text-left font-normal">Creation Date</th>
+                                <th class="px-4 py-3 text-left font-normal">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for job in page_obj.object_list %}
+                                <tr class="border-b">
+                                    <td class="px-4 py-4">
+                                        <a href="{% url 'job_description' job_id=job.id %}" class="text-black hover:underline">{{ job.title }}</a>
+                                    </td>
+                                    <td class="px-4 py-4">{{ job.company }}</td>
+                                    <td class="px-4 py-4">{{ job.department }}</td>
+                                    <td class="px-4 py-4">{{ job.posted_at|date:"Y-m-d" }}</td>
+                                    <td class="px-4 py-4">{{ job.status }}</td>
+                                </tr>
+                            {% empty %}
+                                <tr>
+                                    <td colspan="5" class="text-center py-4">No jobs available.</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                    <!-- Pagination -->
+                    <div class="flex justify-between bg-[#1cdeb0] p-4">
+                        {% if page_obj.has_previous %}
+                            <a href="?page=1" class="bg-[#003634] text-white py-2 px-4 rounded-xl">First</a>
+                            <a href="?page={{ page_obj.previous_page_number }}" class="bg-[#003634] text-white py-2 px-4 rounded-xl">Previous</a>
+                        {% endif %}
+                        {% if page_obj.has_next %}
+                            <a href="?page={{ page_obj.next_page_number }}" class="bg-[#003634] text-white py-2 px-4 rounded-xl">Next</a>
+                            <a href="?page={{ page_obj.paginator.num_pages }}" class="bg-[#003634] text-white py-2 px-4 rounded-xl">Last</a>
+                        {% endif %}
+                    </div>
+                {% else %}
+                    <div class="text-center py-4">
+                        <p>No active jobs available.</p>
+                    </div>
+                {% endif %}
+            </div>
+
+            <button class="bg-[#003634] text-white py-2 px-4 rounded-xl mt-6" onclick="window.location.href='{% url 'job_list' %}'">See All Jobs Posted</button>
+        </div>
+    </div>
+</body>
+
+</html>
