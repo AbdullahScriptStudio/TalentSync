@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-b6)j&saei-@%)*b70_@au$-t1!zm@+7ao6$gv82603(ji59h@%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.vercel.app', 'localhost', '.now.sh']
+ALLOWED_HOSTS = ['talentsync.vercel.app', 'localhost']
 
 
 # Application definition
