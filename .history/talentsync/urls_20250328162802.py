@@ -18,12 +18,12 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from recruiter.views import landing_page
+from recruiter.views import home
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', landing_page, name='landing_page'),
+    path('', home, name = 'home'),
     path('recruiter/', include('recruiter.urls')),
     path('applicant/', include('applicant.urls')),
     path('people/', include('people.urls')),
