@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-b6)j&saei-@%)*b70_@au$-t1!zm@+7ao6$gv82603(ji59h@%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 
@@ -45,7 +45,11 @@ INSTALLED_APPS = [
     'people',
 ]
 
+# The `MIDDLEWARE` setting in Django is a list of middleware classes that Django applies to incoming
+# HTTP requests. Middleware is a framework of hooks into Django's request/response processing. It's a
+# lightweight, low-level plugin system for globally altering Django's input or output.
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -126,14 +130,22 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 import os
+import django_heroku
 
-STATIC_URL = '/static/'  # URL to access static files
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),  # Add the path to your static directory
-] 
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Static files settings
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # For collected static files in production
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]  # Path to static files like images
+django_heroku.settings(locals())
+
+
+
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 
 
 # Default primary key field type
