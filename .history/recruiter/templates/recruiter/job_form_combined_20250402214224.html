@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Post New Job</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap');
+
+        body {
+            font-family: "Poppins", sans-serif;
+            background-color: white;
+        }
+
+        button {
+            font-size: 18px;
+            display: inline-block;
+            outline: 0;
+            border: 0;
+            cursor: pointer;
+            will-change: box-shadow, transform;
+            background: radial-gradient(100% 100% at 100% 0%, #003634 0%, #003634 100%);
+            box-shadow: 0px 0.01em 0.01em rgb(45 35 66 / 40%), 0px 0.3em 0.7em -0.01em rgb(45 35 66 / 30%), inset 0px -0.01em 0px rgb(0 54 52 / 50%);
+            padding: 0 2em;
+            border-radius: 0.3em;
+            color: #fff;
+            height: 2.6em;
+            text-shadow: 0 1px 0 rgb(0 0 0 / 40%);
+            transition: box-shadow 0.15s ease, transform 0.15s ease;
+        }
+
+        button:hover {
+            box-shadow: 0px 0.1em 0.2em rgb(0 54 52 / 40%), 0px 0.4em 0.7em -0.1em rgb(0 54 52 / 30%), inset 0px -0.1em 0px #003634;
+            transform: translateY(-0.1em);
+        }
+
+        button:active {
+            box-shadow: inset 0px 0.1em 0.6em #003634;
+            transform: translateY(0em);
+        }
+
+        .skill-box {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill-item {
+            background-color: #003634;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .skill-item button {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            margin-left: 8px;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+    <!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Job Post - Combined Form</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap');
+
+        body {
+            font-family: "Poppins", sans-serif;
+            background-color: white;
+        }
+
+        button {
+            font-size: 18px;
+            display: inline-block;
+            outline: 0;
+            border: 0;
+            cursor: pointer;
+            will-change: box-shadow, transform;
+            background: radial-gradient(100% 100% at 100% 0%, #003634 0%, #003634 100%);
+            box-shadow: 0px 0.01em 0.01em rgb(45 35 66 / 40%), 0px 0.3em 0.7em -0.01em rgb(45 35 66 / 30%), inset 0px -0.01em 0px rgb(0 54 52 / 50%);
+            padding: 0 2em;
+            border-radius: 0.3em;
+            color: #fff;
+            height: 2.6em;
+            text-shadow: 0 1px 0 rgb(0 0 0 / 40%);
+            transition: box-shadow 0.15s ease, transform 0.15s ease;
+        }
+
+        button:hover {
+            box-shadow: 0px 0.1em 0.2em rgb(0 54 52 / 40%), 0px 0.4em 0.7em -0.1em rgb(0 54 52 / 30%), inset 0px -0.1em 0px #003634;
+            transform: translateY(-0.1em);
+        }
+
+        button:active {
+            box-shadow: inset 0px 0.1em 0.6em #003634;
+            transform: translateY(0em);
+        }
+
+        .skill-box {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill-item {
+            background-color: #003634;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .skill-item button {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            margin-left: 8px;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <div class="bg-[#003634] text-white w-1/4 p-6 flex flex-col items-center fixed h-full" style="padding: 4rem;">
+            <div class="flex items-center mb-8">
+                <img alt="TalentSync logo" class="w-48 h-auto" src="{% static 'images/logo.svg' %}" />
+            </div>
+            <div class="text-center mb-4">
+                <p class="text-sm">Greetings</p>
+                <p class="text-lg">{{ recruiter_name }} <i class="fa-regular fa-pen-to-square"></i></p>
+            </div>
+            
+            <img alt="Profile picture" class="w-24 h-24 rounded-full mb-4" src="{{ profile_picture }}" />
+
+            <nav class="flex flex-col w-full">
+                <a href="{% url 'recruiter_dashboard' %}" class="bg-[#1cdeb0] text-white py-2 px-4 rounded-xl mb-2 text-center">Overview</a>
+                <a href="{% url 'job_list' %}" class="bg-white text-teal-900 py-2 px-4 rounded-xl mb-2 text-center">Active Jobs</a>
+                <a href="{% url 'applications_list' %}" class="bg-white text-teal-900 py-2 px-4 rounded mb-2" style="border-radius: 0.5rem;color: rgb(0 0 0); text-align: center;">Applicants</a>
+                <a href="#" class="bg-white text-teal-900 py-2 px-4 rounded mb-2" style="border-radius: 0.5rem;color: rgb(0 0 0); text-align: center;">Profile &amp; Settings</a>
+            </nav>
+            <a href="{% url 'user_logout' %}" class="mt-auto bg-red-500 py-2 px-6 rounded-xl">Sign Out</a>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 p-10 ml-[25%] overflow-y-auto">
+            <div class="bg-[#1dddb0] rounded-xl shadow-lg">
+                <div>
+                    <h2 class="bg-[#003634] text-white font-bold mb-6 p-4 rounded-xl">Add Job</h2>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="flex justify-center mb-6">
+                    <div class="w-1/3 h-1 bg-gray-300 rounded-full">
+                        <div class="h-full bg-teal-500 rounded-full" style="width: 100%;"></div> <!-- 100% for combined form -->
+                    </div>
+                </div>
+
+                <div class="p-6 rounded-xl">
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Job Details</h3>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 p-4">
+                            <!-- Job Title -->
+                            <div>
+                                <label for="title" class="block text-lg font-semibold mb-2">Job Title</label>
+                                <input type="text" name="title" id="title" value="{{ form.title.value|default:'' }}" class="w-full p-3 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500" required />
+                                {% if form.title.errors %}
+                                    <p class="text-red-500 text-sm">{{ form.title.errors }}</p>
+                                {% endif %}
+                            </div>
+
+                            <!-- Company -->
+                            <div>
+                                <label for="company" class="block text-lg font-semibold mb-2">Company</label>
+                                <input type="text" name="company" id="company" value="{{ form.company.value|default:'' }}" class="w-full p-3 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500" required />
+                                {% if form.company.errors %}
+                                    <p class="text-red-500 text-sm">{{ form.company.errors }}</p>
+                                {% endif %}
+                            </div>
+
+                            <!-- Country -->
+                            <div>
+                                <label for="country" class="block text-lg font-semibold mb-2">Country</label>
+                                <select class="w-full p-3 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500" name="country" required>
+                                    <option value="DE" {% if form.country.value == "DE" %}selected{% endif %}>Germany</option>
+                                </select>
+                                {% if form.country.errors %}
+                                    <p class="text-red-500 text-sm">{{ form.country.errors }}</p>
+                                {% endif %}
+                            </div>
+
+                            <!-- State/Province -->
+                            <div>
+                                <label for="state_province" class="block text-lg font-semibold mb-2">City</label>
+                                <select class="w-full p-3 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500" name="city" required>
+                                    <option value="Baden-Württemberg" {% if form.city.value == "Baden-Württemberg" %}selected{% endif %}>Baden-Württemberg</option>
+                                    <option value="Bavaria" {% if form.city.value == "Bavaria" %}selected{% endif %}>Bavaria</option>
+                                    <option value="Berlin" {% if form.city.value == "Berlin" %}selected{% endif %}>Berlin</option>
+                                    <option value="Brandenburg" {% if form.city.value == "Brandenburg" %}selected{% endif %}>Brandenburg</option>
+                                    <option value="Bremen" {% if form.city.value == "Bremen" %}selected{% endif %}>Bremen</option>
+                                    <option value="Hamburg" {% if form.city.value == "Hamburg" %}selected{% endif %}>Hamburg</option>
+                                    <option value="Hesse" {% if form.city.value == "Hesse" %}selected{% endif %}>Hesse</option>
+                                    <option value="Lower Saxony" {% if form.city.value == "Lower Saxony" %}selected{% endif %}>Lower Saxony</option>
+                                    <option value="Mecklenburg-Vorpommern" {% if form.city.value == "Mecklenburg-Vorpommern" %}selected{% endif %}>Mecklenburg-Vorpommern</option>
+                                    <option value="North Rhine-Westphalia" {% if form.city.value == "North Rhine-Westphalia" %}selected{% endif %}>North Rhine-Westphalia</option>
+                                    <option value="Rhineland-Palatinate" {% if form.city.value == "Rhineland-Palatinate" %}selected{% endif %}>Rhineland-Palatinate</option>
+                                    <option value="Saarland" {% if form.city.value == "Saarland" %}selected{% endif %}>Saarland</option>
+                                    <option value="Saxony" {% if form.city.value == "Saxony" %}selected{% endif %}>Saxony</option>
+                                    <option value="Saxony-Anhalt" {% if form.city.value == "Saxony-Anhalt" %}selected{% endif %}>Saxony-Anhalt</option>
+                                    <option value="Schleswig-Holstein" {% if form.city.value == "Schleswig-Holstein" %}selected{% endif %}>Schleswig-Holstein</option>
+                                    <option value="Thuringia" {% if form.city.value == "Thuringia" %}selected{% endif %}>Thuringia</option>
+                                </select>
+
+                                {% if form.state_province.errors %}
+                                    <p class="text-red-500 text-sm">{{ form.state_province.errors }}</p>
+                                {% endif %}
+                            </div>
+
+                            <!-- City -->
+                            <div>
+                                <label for="city" class="block text-lg font-semibold mb-2">City</label>
+                                <select class="w-full p-3 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500" name="city" required>
+                                    <option value="Berlin" {% if form.city.value == "Berlin" %}selected{% endif %}>Berlin</option>
+                                    <option value="Munich" {% if form.city.value == "Munich" %}selected{% endif %}>Munich</option>
+                                    <option value="Hamburg" {% if form.city.value == "Hamburg" %}selected{% endif %}>Hamburg</option>
+                                    <option value="Cologne" {% if form.city.value == "Cologne" %}selected{% endif %}>Cologne</option>
+                                    <option value="Frankfurt" {% if form.city.value == "Frankfurt" %}selected{% endif %}>Frankfurt</option>
+                                    <option value="Stuttgart" {% if form.city.value == "Stuttgart" %}selected{% endif %}>Stuttgart</option>
+                                    <option value="Düsseldorf" {% if form.city.value == "Düsseldorf" %}selected{% endif %}>Düsseldorf</option>
+                                  <option value="Dortmund" {% if form.city.value == "Dortmund" %}selected{% endif %}>Dortmund</option>
+                                  <option value="Essen" {% if form.city.value == "Essen" %}selected{% endif %}>Essen</option>
+                                 <option value="Leipzig" {% if form.city.value == "Leipzig" %}selected{% endif %}>Leipzig</option>
+                                </select>
+
+                                {% if form.city.errors %}
+                                    <p class="text-red-500 text-sm">{{ form.city.errors }}</p>
+                                {% endif %}
+                            </div>
+
+                            <!-- Job Type -->
+                            <div>
+                                <label for="job_type" class="block text-lg font-semibold mb-2">Job Type</label>
+                                <select class="w-full p-3 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500" name="job_type" required>
+                                    <option value="full_time" {% if form.job_type.value == "full_time" %}selected{% endif %}>Full-time</option>
+                                    <option value="part_time" {% if form.job_type.value == "part_time" %}selected{% endif %}>Part-time</option>
+                                    <option value="contract" {% if form.job_type.value == "contract" %}selected{% endif %}>Contract</option>
+                                    <option value="internship" {% if form.job_type.value == "internship" %}selected{% endif %}>Internship</option>
+                                </select>
+                                {% if form.job_type.errors %}
+                                    <p class="text-red-500 text-sm">{{ form.job_type.errors }}</p>
+                                {% endif %}
+                            </div>
+
+                            <!-- Department -->
+                            <div>
+                                <label for="department" class="block text-lg font-semibold mb-2">Department</label>
+                                <select class="w-full p-3 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500" name="department" required>
+                                    <option value="engineering" {% if form.department.value == "engineering" %}selected{% endif %}>Engineering</option>
+                                    <option value="marketing" {% if form.department.value == "marketing" %}selected{% endif %}>Marketing</option>
+                                    <option value="sales" {% if form.department.value == "sales" %}selected{% endif %}>Sales</option>
+                                    <option value="human_resources" {% if form.department.value == "human_resources" %}selected{% endif %}>Human Resources</option>
+                                </select>
+                                {% if form.department.errors %}
+                                    <p class="text-red-500 text-sm">{{ form.department.errors }}</p>
+                                {% endif %}
+                            </div>
+
+                            <!-- Experience (Min and Max) -->
+                            <div>
+                                <label for="min_experience" class="block text-lg font-semibold mb-2">Experience (Min)</label>
+                                <input type="number" name="min_experience" id="min_experience" value="{{ form.min_experience.value|default:'' }}" class="w-1/2 p-3 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500" required />
+                                {% if form.min_experience.errors %}
+                                    <p class="text-red-500 text-sm">{{ form.min_experience.errors }}</p>
+                                {% endif %}
+                            </div>
+
+                            <div>
+                                <label for="max_experience" class="block text-lg font-semibold mb-2">Experience (Max)</label>
+                                <input type="number" name="max_experience" id="max_experience" value="{{ form.max_experience.value|default:'' }}" class="w-1/2 p-3 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500" required />
+                                {% if form.max_experience.errors %}
+                                    <p class="text-red-500 text-sm">{{ form.max_experience.errors }}</p>
+                                {% endif %}
+                            </div>
+
+                            <!-- Salary (Min and Max) -->
+                            <div>
+                                <label for="min_salary" class="block text-lg font-semibold mb-2">Salary (Min)</label>
+                                <input type="number" name="min_salary" id="min_salary" value="{{ form.min_salary.value|default:'' }}" class="w-1/3 p-3 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500" required />
+                                {% if form.min_salary.errors %}
+                                    <p class="text-red-500 text-sm">{{ form.min_salary.errors }}</p>
+                                {% endif %}
+                            </div>
+
+                            <div>
+                                <label for="max_salary" class="block text-lg font-semibold mb-2">Salary (Max)</label>
+                                <input type="number" name="max_salary" id="max_salary" value="{{ form.max_salary.value|default:'' }}" class="w-1/3 p-3 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500" required />
+                                {% if form.max_salary.errors %}
+                                    <p class="text-red-500 text-sm">{{ form.max_salary.errors }}</p>
+                                {% endif %}
+                            </div>
+
+                            <!-- Salary Currency -->
+                            <div>
+                                <label for="salary_currency" class="block text-lg font-semibold mb-2">Salary Currency</label>
+                                <select class="w-1/3 p-3 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500" name="salary_currency" required>
+                                    <option value="USD" {% if form.salary_currency.value == "USD" %}selected{% endif %}>USD</option>
+                                    <option value="EUR" {% if form.salary_currency.value == "EUR" %}selected{% endif %}>EUR</option>
+                                    <option value="GBP" {% if form.salary_currency.value == "GBP" %}selected{% endif %}>GBP</option>
+                                </select>
+                                {% if form.salary_currency.errors %}
+                                    <p class="text-red-500 text-sm">{{ form.salary_currency.errors }}</p>
+                                {% endif %}
+                            </div>
+
+                            <!-- Skills Required -->
+                            <div>
+                                <label for="skills_required" class="block text-lg font-semibold mb-2">Skills Required</label>
+                                <input type="text" name="skills_required" id="skills_required" value="{{ form.skills_required.value|default:'' }}" class="w-full p-3 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500" required />
+                                {% if form.skills_required.errors %}
+                                    <p class="text-red-500 text-sm">{{ form.skills_required.errors }}</p>
+                                {% endif %}
+                            </div>
+
+                            <!-- Job Status -->
+                            <div>
+                                <label class="block text-lg font-semibold mb-2">Job Status</label>
+                                <select class="w-full p-3 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500" name="status" required>
+                                    <option value="open" {% if form.status.value == "open" %}selected{% endif %}>Open</option>
+                                    <option value="closed" {% if form.status.value == "closed" %}selected{% endif %}>Closed</option>
+                                    <option value="paused" {% if form.status.value == "paused" %}selected{% endif %}>Paused</option>
+                                </select>
+                                {% if form.status.errors %}
+                                    <p class="text-red-500 text-sm">{{ form.status.errors }}</p>
+                                {% endif %}
+                            </div>
+
+                            <!-- Job Description -->
+                            <div>
+                                <label for="job_description" class="block text-lg font-semibold mb-2">Job Description</label>
+                                <textarea name="job_description" id="job_description" class="w-full p-3 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500" required>{{ form.job_description.value|default:'' }}</textarea>
+                                {% if form.job_description.errors %}
+                                    <p class="text-red-500 text-sm">{{ form.job_description.errors }}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="flex justify-between mt-6">
+                            <!-- Cancel Button Link -->
+                            <button class="bg-[#003634] text-white py-2 px-6 rounded-xl" type="button" onclick="window.location.href='{% url 'job_list' %}'">Cancel</button>
+                            <!-- Submit Button -->
+                            <button class="bg-[#003634] text-white py-2 px-6 rounded-xl" type="submit">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const skillInput = document.getElementById('skill-input');
+            const skillContainer = document.getElementById('skill-container');
+        
+            skillInput.addEventListener('keypress', function (e) {
+                if (e.key === 'Enter' && skillInput.value.trim() !== '') {
+                    const skillName = skillInput.value.trim();
+                    if (isSkillDuplicate(skillName)) {
+                        alert('Skill already exists.');
+                    } else {
+                        addSkill(skillName);
+                        skillInput.value = '';
+                    }
+                }
+            });
+        
+            function isSkillDuplicate(skillName) {
+                const skills = skillContainer.querySelectorAll('.skill-item');
+                for (const skill of skills) {
+                    if (skill.textContent.includes(skillName)) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        
+            function addSkill(skillName) {
+                const skill = document.createElement('div');
+                skill.className = 'skill-item';
+                skill.innerHTML = `
+                    <span>${skillName}</span>
+                    <button class="text-white hover:text-[#1cdeb0]">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                skill.querySelector('button').addEventListener('click', function () {
+                    skill.remove();
+                });
+                skillContainer.appendChild(skill);
+            }
+        });
+    </script>
+    <script type="text/javascript">
+        (function(d, m){
+            var kommunicateSettings = 
+                {"appId":"150fdb43e37dee78dacd6bfadbd1aae59","popupWidget":true,"automaticChatOpenOnNavigation":true};
+            var s = document.createElement("script"); s.type = "text/javascript"; s.async = true;
+            s.src = "https://widget.kommunicate.io/v2/kommunicate.app";
+            var h = document.getElementsByTagName("head")[0]; h.appendChild(s);
+            window.kommunicate = m; m._globals = kommunicateSettings;
+        })(document, window.kommunicate || {});
+    /* NOTE : Use web server to view HTML files as real-time update will not work if you directly open the HTML file in the browser. */
+    </script>
+</body>
+
+</html>
