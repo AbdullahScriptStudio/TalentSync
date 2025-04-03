@@ -27,29 +27,29 @@ Follow these steps to **set up and run the project locally**.
 ```sh
 git clone https://github.com/your-username/ai-job-matchmaker.git
 cd ai-job-matchmaker
-
+```
 
 
 ###  **Step 2: Create & Activate Virtual Environment**
 ```sh
 python -m venv env  
 env\Scripts\activate
-
+```
 
 ### 📦 **Step 3: Install Dependencies**
 ```sh
 pip install -r requirements.txt
-
+```
 
 ### 🛠 **Step 4: Apply Migrations**
 ```sh
 python manage.py makemigrations  
 python manage.py migrate
-
+```
 ### 🚀 **Step 5: Run the Development Server**
 ```sh
 python manage.py runserver
-
+```
 
 
 ## 🎯 Key Features
