@@ -30,7 +30,7 @@
         }
         
         .container {
-            max-width: 1000px;
+            /* max-width: 1000px; */
             margin: 0 auto;
             padding: 20px;
         }
@@ -184,10 +184,35 @@
             }
         }
     </style>
+     <script src="https://cdn.tailwindcss.com"></script>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
+    {% load static %}
+    <body class="bg-gray-100">
+        <div class="flex min-h-screen">
+            <!-- Sidebar -->
+            <div class="bg-[#003634] text-white w-1/4 p-6 flex flex-col items-center fixed h-full">
+                <div class="flex items-center mb-8">
+                    <img alt="TalentSync logo" class="w-48 h-auto" src="{% static 'images/logo.svg' %}" />
+                </div>
+                <div class="text-center mb-4">
+                    <p class="text-sm">Greetings</p>
+                    <p class="text-lg">{{ recruiter_name }} <i class="fa-regular fa-pen-to-square"></i></p>
+                </div>
+                
+                <img alt="Profile picture" class="w-24 h-24 rounded-full mb-4" src="{{ profile_picture }}" />
+    
+                <nav class="flex flex-col w-full">
+                    <a href="{% url 'recruiter_dashboard' %}" class="bg-[#1cdeb0] text-white py-2 px-4 rounded-xl mb-2 text-center">Overview</a>
+                    <a href="{% url 'job_list' %}" class="bg-white text-teal-900 py-2 px-4 rounded-xl mb-2 text-center">Active Jobs</a>
+                    <a href="{% url 'applications_list' %}" class="bg-white text-black py-2 px-4 rounded mb-2 text-center">Applicants</a>
+                    <a href="#" class="bg-white text-black py-2 px-4 rounded mb-2 text-center">Profile &amp; Settings</a>
+                </nav>
+                <a href="{% url 'user_logout' %}" class="mt-auto bg-red-500 py-2 px-6 rounded-xl">Sign Out</a>
+            </div>
 
-<div class="container">
+<div class="flex-1 p-10 ml-[25%] overflow-y-auto">
     {% for profile in response_data %}
     <div class="container">
         <!-- Profile Header -->
