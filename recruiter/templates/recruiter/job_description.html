@@ -36,7 +36,14 @@
         <!-- Main Content -->
         <div class="flex-1 p-10 ml-[25%] overflow-y-auto">
             <div class="bg-[#1dddb0] p-6 rounded-xl shadow-lg">
-                <h2 class="text-lg font-bold mb-4 bg-[#003634] text-white p-4 rounded-xl">Job Details</h2>
+                <form class="flex justify-between text-center items-center text-lg font-bold bg-[#003634] text-white p-4 rounded-xl" method="POST" action="{% url 'match_profiles' %}">
+                    <h2 class="">Job Details</h2>
+                    {% csrf_token %}
+                    <input type="text" name="job_description" value="{{ job.job_description }}" hidden required><br><br>
+                    <input type="text" name="keywords" hidden value="{{ job.skills_required }}" required><br><br>
+                    <button class="flex bg-purple-700 py-2 px-6 rounded-xl" type="submit">AI Matchmaker</button>
+                    </form>
+
 
                 <!-- Job Information -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
