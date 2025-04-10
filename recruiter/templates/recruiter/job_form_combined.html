@@ -213,23 +213,23 @@
                             <!-- State/Province -->
                             <div>
                                 <label for="state_province" class="block text-lg font-semibold mb-2">City</label>
-                                <select class="w-full p-3 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500" name="city" required>
-                                    <option value="Baden-Württemberg" {% if form.city.value == "Baden-Württemberg" %}selected{% endif %}>Baden-Württemberg</option>
-                                    <option value="Bavaria" {% if form.city.value == "Bavaria" %}selected{% endif %}>Bavaria</option>
-                                    <option value="Berlin" {% if form.city.value == "Berlin" %}selected{% endif %}>Berlin</option>
-                                    <option value="Brandenburg" {% if form.city.value == "Brandenburg" %}selected{% endif %}>Brandenburg</option>
-                                    <option value="Bremen" {% if form.city.value == "Bremen" %}selected{% endif %}>Bremen</option>
-                                    <option value="Hamburg" {% if form.city.value == "Hamburg" %}selected{% endif %}>Hamburg</option>
-                                    <option value="Hesse" {% if form.city.value == "Hesse" %}selected{% endif %}>Hesse</option>
-                                    <option value="Lower Saxony" {% if form.city.value == "Lower Saxony" %}selected{% endif %}>Lower Saxony</option>
-                                    <option value="Mecklenburg-Vorpommern" {% if form.city.value == "Mecklenburg-Vorpommern" %}selected{% endif %}>Mecklenburg-Vorpommern</option>
-                                    <option value="North Rhine-Westphalia" {% if form.city.value == "North Rhine-Westphalia" %}selected{% endif %}>North Rhine-Westphalia</option>
-                                    <option value="Rhineland-Palatinate" {% if form.city.value == "Rhineland-Palatinate" %}selected{% endif %}>Rhineland-Palatinate</option>
-                                    <option value="Saarland" {% if form.city.value == "Saarland" %}selected{% endif %}>Saarland</option>
-                                    <option value="Saxony" {% if form.city.value == "Saxony" %}selected{% endif %}>Saxony</option>
-                                    <option value="Saxony-Anhalt" {% if form.city.value == "Saxony-Anhalt" %}selected{% endif %}>Saxony-Anhalt</option>
-                                    <option value="Schleswig-Holstein" {% if form.city.value == "Schleswig-Holstein" %}selected{% endif %}>Schleswig-Holstein</option>
-                                    <option value="Thuringia" {% if form.city.value == "Thuringia" %}selected{% endif %}>Thuringia</option>
+                                <select class="w-full p-3 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500" name="state_province" required>
+                                    <option value="Baden-Württemberg" {% if form.state_province.value == "Baden-Württemberg" %}selected{% endif %}>Baden-Württemberg</option>
+                                    <option value="Bavaria" {% if form.state_province.value == "Bavaria" %}selected{% endif %}>Bavaria</option>
+                                    <option value="Berlin" {% if form.state_province.value == "Berlin" %}selected{% endif %}>Berlin</option>
+                                    <option value="Brandenburg" {% if form.state_province.value == "Brandenburg" %}selected{% endif %}>Brandenburg</option>
+                                    <option value="Bremen" {% if form.state_province.value == "Bremen" %}selected{% endif %}>Bremen</option>
+                                    <option value="Hamburg" {% if form.state_province.value == "Hamburg" %}selected{% endif %}>Hamburg</option>
+                                    <option value="Hesse" {% if form.state_province.value == "Hesse" %}selected{% endif %}>Hesse</option>
+                                    <option value="Lower Saxony" {% if form.state_province.value == "Lower Saxony" %}selected{% endif %}>Lower Saxony</option>
+                                    <option value="Mecklenburg-Vorpommern" {% if form.state_province.value == "Mecklenburg-Vorpommern" %}selected{% endif %}>Mecklenburg-Vorpommern</option>
+                                    <option value="North Rhine-Westphalia" {% if form.state_province.value == "North Rhine-Westphalia" %}selected{% endif %}>North Rhine-Westphalia</option>
+                                    <option value="Rhineland-Palatinate" {% if form.state_province.value == "Rhineland-Palatinate" %}selected{% endif %}>Rhineland-Palatinate</option>
+                                    <option value="Saarland" {% if form.state_province.value == "Saarland" %}selected{% endif %}>Saarland</option>
+                                    <option value="Saxony" {% if form.state_province.value == "Saxony" %}selected{% endif %}>Saxony</option>
+                                    <option value="Saxony-Anhalt" {% if form.state_province.value == "Saxony-Anhalt" %}selected{% endif %}>Saxony-Anhalt</option>
+                                    <option value="Schleswig-Holstein" {% if form.state_province.value == "Schleswig-Holstein" %}selected{% endif %}>Schleswig-Holstein</option>
+                                    <option value="Thuringia" {% if form.state_province.value == "Thuringia" %}selected{% endif %}>Thuringia</option>
                                 </select>
 
                                 {% if form.state_province.errors %}

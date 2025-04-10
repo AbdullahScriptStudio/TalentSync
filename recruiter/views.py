@@ -7,6 +7,8 @@ from recruiter.models import JobPost
 from people.models import CustomUser  # Import the user model
 from django.http import HttpResponseForbidden
 from django.contrib.staticfiles.storage import staticfiles_storage
+import requests
+from django.views.decorators.csrf import csrf_exempt
 
 def is_recruiter(user):
     """Helper function to check if the user is a recruiter."""
@@ -176,6 +178,34 @@ def applications_list(request):
 
 def landing_page(request):
     return render(request, 'recruiter/landing_page.html')
+
+
+import requests
+from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
+
+@csrf_exempt  # for testing, not recommended for production
+def match_profiles_view(request):
+    response_data = None
+
+    if request.method == "POST":
+        job_description = request.POST.get("job_description")
+        keywords = request.POST.get("keywords")
+        url = "https://talent-sync-eight.vercel.app/match_profiles"
+        payload = {
+            "job_description": job_description,
+            "keywords": keywords
+        }
+        headers = {"Content-Type": "application/json"}
+
+        try:
+            api_response = requests.post(url, json=payload, headers=headers)
+            response_data = api_response.json()
+        except Exception as e:
+            response_data = {"error": str(e)}
+
+    return render(request, "recruiter/match_profiles.html", {"response_data": response_data["data"]})
+
 
 
 
